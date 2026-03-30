@@ -29,7 +29,7 @@ app.post("/create-order", async (req, res) => {
 
     const response = await axios.post("https://api.cashfree.com/pg/orders", {
       order_id: orderId,
-      order_amount: 199,
+      order_amount: 99,
       order_currency: "INR",
       customer_details: {
         customer_id: orderId,
