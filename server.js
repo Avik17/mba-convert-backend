@@ -32,10 +32,10 @@ app.post("/create-order", async (req, res) => {
       order_amount: 199,
       order_currency: "INR",
       customer_details: {
-        customer_id: `cust_${Date.now()}`,
+        customer_id: orderId,
         customer_name: name || "Student",
-        customer_email: email,
-        customer_phone: phone,
+        customer_email: email || "student@mbaconvert.in",
+        customer_phone: phone || "9999999999",
       },
     }, { headers: CF_HEADERS });
 
@@ -45,8 +45,9 @@ app.post("/create-order", async (req, res) => {
       order_id: orderId,
     });
   } catch (error) {
-    console.error("Order creation failed:", error.response?.data || error.message);
-    res.status(500).json({ success: false, message: "Order creation failed" });
+    const errDetail = error.response?.data || error.message;
+    console.error("Order creation failed:", JSON.stringify(errDetail));
+    res.status(500).json({ success: false, message: "Order creation failed", detail: errDetail });
   }
 });
 
